@@ -119,4 +119,5 @@ module "event_bus_policy" {
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The ID of the event bus policy (same as the event bus name). |
 | <a name="output_region"></a> [region](#output\_region) | The AWS region where the resources were deployed. |
+| <a name="output_event_bus_name"></a> [event\_bus\_name](#output\_event\_bus\_name) | The event bus name for test assertions. |
 <!-- END_TF_DOCS -->

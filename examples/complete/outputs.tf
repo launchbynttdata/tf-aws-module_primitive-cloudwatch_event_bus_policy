@@ -19,3 +19,8 @@ output "region" {
   description = "The AWS region where the resources were deployed."
   value       = data.aws_region.current.name
 }
+
+output "event_bus_name" {
+  description = "The event bus name for test assertions."
+  value       = module.resource_names["event_bus"].standard
+}

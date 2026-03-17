@@ -18,7 +18,8 @@ import (
 func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
 		eventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
-		assert.NotEmpty(t, eventBusName, "id output (event bus name) should be set")
+		configuredEventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "event_bus_name")
+		assert.Equal(t, configuredEventBusName, eventBusName, "id output should match configured event bus name")
 	})
 
 	t.Run("VerifyPolicyViaAWSAPI", func(t *testing.T) {
@@ -74,7 +75,8 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
 		eventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
-		assert.NotEmpty(t, eventBusName, "id output (event bus name) should be set")
+		configuredEventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "event_bus_name")
+		assert.Equal(t, configuredEventBusName, eventBusName, "id output should match configured event bus name")
 	})
 
 	t.Run("VerifyPolicyViaAWSAPI", func(t *testing.T) {
