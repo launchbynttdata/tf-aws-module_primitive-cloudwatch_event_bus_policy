@@ -38,12 +38,6 @@ pre-commit install --hook-type commit-msg
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.14 |
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
-
 ## Modules
 
 No modules.
@@ -58,8 +52,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_policy"></a> [policy](#input\_policy) | The text of the policy document. This should be a JSON policy document (typically created using the aws\_iam\_policy\_document data source). | `string` | n/a | yes |
 | <a name="input_event_bus_name"></a> [event\_bus\_name](#input\_event\_bus\_name) | The name of the event bus to set permissions on. If omitted, permissions are set on the default event bus. | `string` | `null` | no |
+| <a name="input_policy"></a> [policy](#input\_policy) | The text of the policy document. This should be a JSON policy document (typically created using the aws\_iam\_policy\_document data source). | `string` | n/a | yes |
 
 ## Outputs
 
