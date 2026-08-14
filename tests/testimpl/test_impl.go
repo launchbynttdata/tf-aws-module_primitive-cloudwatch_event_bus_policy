@@ -17,13 +17,13 @@ import (
 
 func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
-		eventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
-		configuredEventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "event_bus_name")
+		eventBusName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
+		configuredEventBusName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "event_bus_name")
 		assert.Equal(t, configuredEventBusName, eventBusName, "id output should match configured event bus name")
 	})
 
 	t.Run("VerifyPolicyViaAWSAPI", func(t *testing.T) {
-		eventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
+		eventBusName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
 		require.NotEmpty(t, eventBusName, "event bus name required for API verification")
 
 		cfg, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(getAWSRegion(t, ctx)))
@@ -47,7 +47,7 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 	})
 
 	t.Run("VerifyPutEventsSucceeds", func(t *testing.T) {
-		eventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
+		eventBusName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
 		require.NotEmpty(t, eventBusName, "event bus name required for PutEvents")
 
 		cfg, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(getAWSRegion(t, ctx)))
@@ -74,13 +74,13 @@ func TestComposableComplete(t *testing.T, ctx types.TestContext) {
 
 func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 	t.Run("VerifyTerraformOutputs", func(t *testing.T) {
-		eventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
-		configuredEventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "event_bus_name")
+		eventBusName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
+		configuredEventBusName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "event_bus_name")
 		assert.Equal(t, configuredEventBusName, eventBusName, "id output should match configured event bus name")
 	})
 
 	t.Run("VerifyPolicyViaAWSAPI", func(t *testing.T) {
-		eventBusName := terraform.Output(t, ctx.TerratestTerraformOptions(), "id")
+		eventBusName := terraform.OutputContext(t, context.Background(), ctx.TerratestTerraformOptions(), "id")
 		require.NotEmpty(t, eventBusName, "event bus name required for API verification")
 
 		cfg, err := config.LoadDefaultConfig(context.Background(), config.WithRegion(getAWSRegion(t, ctx)))
@@ -111,7 +111,7 @@ func TestComposableCompleteReadonly(t *testing.T, ctx types.TestContext) {
 
 func getAWSRegion(t *testing.T, ctx types.TestContext) string {
 	// Use region from Terraform output to match where resources were deployed
-	region, err := terraform.OutputE(t, ctx.TerratestTerraformOptions(), "region")
+	region, err := terraform.OutputContextE(t, context.Background(), ctx.TerratestTerraformOptions(), "region")
 	if err == nil && region != "" {
 		return region
 	}
